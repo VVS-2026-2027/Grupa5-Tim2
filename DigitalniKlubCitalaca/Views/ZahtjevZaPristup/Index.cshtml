@@ -1,0 +1,80 @@
+﻿@model IEnumerable<DigitalniKlubCitalaca.Models.ZahtjevZaPristup>
+
+@{
+    ViewData["Title"] = "Zahtjevi za pristup";
+}
+
+<h1>Zahtjevi za pristup grupama</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Korisnik</th>
+            <th>Grupa</th>
+            <th>Datum zahtjeva</th>
+            <th>Status</th>
+            <th>Akcije</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model)
+{
+        <tr>
+            <td>
+                @(item.Korisnik?.UserName ?? item.Korisnik?.Email ?? item.Korisnik?.Id)
+            </td>
+
+            <td>
+                @(item.CitalackaGrupa?.Naziv)
+            </td>
+
+            <td>
+                @item.DatumZahtjeva.ToString("dd.MM.yyyy HH:mm")
+            </td>
+
+            <td>
+                @item.StatusZahtjeva
+            </td>
+
+            <td>
+
+                @if (item.StatusZahtjeva == StatusZahtjeva.na_cekanju)
+                {
+                    <form asp-action="Odobri"
+                          asp-route-id="@item.ZahtjevId"
+                          method="post"
+                          style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-success">
+                            Odobri
+                        </button>
+                    </form>
+
+                    <form asp-action="Odbij"
+                          asp-route-id="@item.ZahtjevId"
+                          method="post"
+                          style="display:inline;">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger">
+                            Odbij
+                        </button>
+                    </form>
+                }
+
+                <a asp-action="Details"
+                   asp-route-id="@item.ZahtjevId"
+                   class="btn btn-info">
+                    Detalji
+                </a>
+
+                <a asp-action="Delete"
+                   asp-route-id="@item.ZahtjevId"
+                   class="btn btn-secondary">
+                    Obriši
+                </a>
+
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

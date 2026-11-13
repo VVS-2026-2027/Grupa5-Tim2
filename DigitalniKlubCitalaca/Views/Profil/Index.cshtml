@@ -1,0 +1,130 @@
+﻿@model IEnumerable<DigitalniKlubCitalaca.Models.Profil>
+
+@{
+    ViewData["Title"] = "Moj profil";
+    var item = Model.FirstOrDefault();
+}
+
+@if (item != null)
+{
+    var punoIme = string.IsNullOrWhiteSpace(item.Korisnik.Ime + item.Korisnik.Prezime)
+        ? "Korisnik"
+        : item.Korisnik.Ime + " " + item.Korisnik.Prezime;
+
+    var korisnickoIme = item.Korisnik.UserName != null
+        ? item.Korisnik.UserName.Split('@')[0]
+        : "korisnik";
+    var profilnaSlika = string.IsNullOrWhiteSpace(item.Korisnik.ProfilnaSlika)
+? "profilna1.jpg"
+: item.Korisnik.ProfilnaSlika;
+
+    <section class="section">
+        <h1 class="section-title" style="text-align:center;">Moj Profil</h1>
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div style="max-width:500px; margin:0 auto 25px; background:#22c55e; color:white; padding:14px 22px; border-radius:14px; text-align:center; font-weight:600;">
+                ✅ @TempData["SuccessMessage"]
+            </div>
+        }
+
+        <div style="display:grid; grid-template-columns:320px 1fr; gap:35px; max-width:1000px; margin:40px auto;">
+
+            <div>
+                <div class="card" style="text-align:center; padding:45px 35px;">
+                    <img src="~/images/avatars/@profilnaSlika"
+                         style="width:160px; height:160px; object-fit:cover; border-radius:50%; border:5px solid #e85d75; margin:0 auto 25px; display:block;" />
+
+                    <h2 style="margin-bottom:5px;">@punoIme</h2>
+                    <p style="color:#8a8a8a;">@@@korisnickoIme</p>
+                    <p style="color:#8a8a8a; margin-top:15px;">📍 @item.Lokacija</p>
+
+                    <div style="margin-top:25px;">
+                        <h2 style="color:#e85d75; margin:0;">@ViewBag.BrojGrupa</h2>
+                        <p style="color:#8a8a8a; text-transform:uppercase;">GRUPE</p>
+                    </div>
+                </div>
+
+                <div class="card" style="margin-top:22px; padding:25px;">
+                    <h4 style="text-align:center; margin-bottom:20px;">Odaberi profilnu sliku</h4>
+
+                    <form asp-action="PromijeniProfilnuSliku" method="post">
+                        @Html.AntiForgeryToken()
+
+                        <div style="display:flex; flex-wrap:wrap; gap:14px; justify-content:center;">
+                            @for (int i = 1; i <= 10; i++)
+                            {
+                                var slika = $"profilna{i}.jpg";
+
+                                <label style="cursor:pointer; text-align:center;">
+                                    <input type="radio"
+                                           name="profilnaSlika"
+                                           value="@slika"
+                                           style="display:block; margin:0 auto 6px;"
+                                           @(profilnaSlika == slika ? "checked" : "") />
+
+                                    <img src="~/images/avatars/@slika"
+                                         style="width:65px; height:65px; object-fit:cover; border-radius:50%; border:2px solid #ddd;" />
+                                </label>
+                            }
+                    </div>
+
+                    <button type="submit"
+                            style="margin-top:20px; width:100%; background:#e85d75; color:white; border:none; border-radius:25px; padding:11px 20px; font-weight:600;">
+                        Sačuvaj sliku
+                    </button>
+                </form>
+            </div>
+        </div>
+
+            <div class="card" style="padding:38px;">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:30px;">
+                    <h2 style="margin:0;">Lični podaci</h2>
+                    <div style="display:flex; gap:15px; align-items:center;">
+                        <a asp-action="Edit" asp-route-id="@item.ProfilId"
+                           style="color:#e85d75; text-decoration:none; font-weight:600;">
+                            Uredi profil
+                        </a>
+                    </div>
+                    
+                </div>
+
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:28px; margin-bottom:30px;">
+                    <div>
+                        <p style="color:#8a8a8a; font-size:13px; text-transform:uppercase;">Ime i prezime</p>
+                        <h4>@punoIme</h4>
+                    </div>
+
+                    <div>
+                        <p style="color:#8a8a8a; font-size:13px; text-transform:uppercase;">Korisničko ime</p>
+                        <h4>@korisnickoIme</h4>
+                    </div>
+
+                    <div>
+                        <p style="color:#8a8a8a; font-size:13px; text-transform:uppercase;">E-mail adresa</p>
+                        <h4>@item.Korisnik.Email</h4>
+                    </div>
+
+                    <div>
+                        <p style="color:#8a8a8a; font-size:13px; text-transform:uppercase;">Regija</p>
+                        <h4>@(string.IsNullOrWhiteSpace(item.Korisnik.Regija) ? "Nije uneseno" : item.Korisnik.Regija)</h4>
+                    </div>
+
+                    <div>
+                        <p style="color:#8a8a8a; font-size:13px; text-transform:uppercase;">Grad</p>
+                        <h4>@item.Lokacija</h4>
+                    </div>
+                </div>
+
+                <div>
+                    <p style="color:#8a8a8a; font-size:13px; text-transform:uppercase;">Biografija</p>
+
+                    <p style="font-size:17px; line-height:1.7;">
+                        @(string.IsNullOrWhiteSpace(item.OpisProfila)
+                                            ? "Korisnik još nije dodao biografiju."
+                                            : item.OpisProfila)
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+}
