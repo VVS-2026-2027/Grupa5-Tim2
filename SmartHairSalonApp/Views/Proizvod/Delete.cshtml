@@ -1,0 +1,36 @@
+﻿@model SmartHairSalonApp.Models.Proizvod
+
+@{
+    ViewData["Title"] = "Ukloni Proizvod";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8 col-lg-6 text-center">
+            <div class="card border-0 shadow rounded-3 border-top border-danger border-4 p-4">
+                <div class="card-body">
+                    <div class="text-danger mb-3">
+                        <i class="bi bi-exclamation-triangle-fill" style="font-size: 3.5rem;"></i>
+                    </div>
+                    <h2 class="fw-bold text-dark mb-2">Jeste li sigurni?</h2>
+                    <p class="text-muted mb-4">Želite li trajno izbrisati ovaj proizvod iz baze podataka? Ova akcija se ne može poništiti.</p>
+
+                    <div class="bg-light p-3 rounded-3 mb-4 text-start">
+                        <div class="small text-muted">Naziv proizvoda:</div>
+                        <div class="fw-bold text-dark fs-5">@Model.Naziv</div>
+                        <div class="small text-muted mt-2">Cijena:</div>
+                        <div class="fw-bold text-primary">@Model.Cijena.ToString("0.00") KM</div>
+                    </div>
+
+                    <form asp-action="Delete">
+                        <input type="hidden" asp-for="Id" />
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-danger btn-lg fw-bold shadow-sm">Da, obriši proizvod</button>
+                            <a asp-action="Index" class="btn btn-light border btn-lg fw-semibold">Odustani</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

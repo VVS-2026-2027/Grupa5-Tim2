@@ -1,1 +1,1 @@
-Inspekcija koda - Grupa5-Tim4 (SmartHairSalonApp)
+# Grupa5-Tim4
