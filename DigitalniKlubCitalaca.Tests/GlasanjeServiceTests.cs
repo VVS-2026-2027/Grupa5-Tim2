@@ -42,5 +42,21 @@ namespace DigitalniKlubCitalaca.Tests
             _servis.Glasaj(3, 20, _prijeRoka);
             Assert.AreEqual(2, _servis.BrojGlasova(10));
         }
+
+
+        // F2-Z3
+        [TestMethod]
+        public void Glasaj_NakonRoka_BacaIzuzetakIGlasSeNeBroji()
+        {
+            Assert.ThrowsException<InvalidOperationException>(() => _servis.Glasaj(1, 10, _rok.AddMinutes(1)));
+            Assert.AreEqual(0, _servis.BrojGlasova(10));
+        }
+
+        [TestMethod]
+        public void Glasaj_TacnoURoku_JeDozvoljeno()
+        {
+            _servis.Glasaj(1, 10, _rok);
+            Assert.AreEqual(1, _servis.BrojGlasova(10));
+        }
     }
 }
