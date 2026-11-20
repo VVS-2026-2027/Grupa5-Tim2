@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ishod prijave (LoginModel.OnPostAsync) u zavisnosti od odgovora SignInManager-a -->
+<prijave>
+  <prijava ishod="uspjeh"       ocekivaniRezultat="LocalRedirectResult" ocekivanaStranica="" />
+  <prijava ishod="zakljucan"    ocekivaniRezultat="RedirectToPageResult" ocekivanaStranica="./Lockout" />
+  <prijava ishod="dvofaktorska" ocekivaniRezultat="RedirectToPageResult" ocekivanaStranica="./LoginWith2fa" />
+  <prijava ishod="neuspjeh"     ocekivaniRezultat="PageResult"           ocekivanaStranica="" />
+</prijave>

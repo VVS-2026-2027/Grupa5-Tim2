@@ -1,0 +1,6 @@
+[
+  { "pocetniStatus": "ceka_odobrenje", "noviStatus": "clan" },
+  { "pocetniStatus": "clan",           "noviStatus": "administracija" },
+  { "pocetniStatus": "clan",           "noviStatus": "izbacen" },
+  { "pocetniStatus": "izbacen",        "noviStatus": "clan" }
+]
