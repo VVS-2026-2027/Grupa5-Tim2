@@ -1,2 +1,8 @@
 DigitalniKlubCitalaca.Tests/bin/
 DigitalniKlubCitalaca.Tests/obj/
+.vs/
+**/.vs/
+.DS_Store
+**/.DS_Store
+coverage-report/
+TestResults/

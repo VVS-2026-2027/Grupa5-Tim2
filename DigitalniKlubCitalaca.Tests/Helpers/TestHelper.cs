@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Routing;
+using Microsoft.AspNetCore.Mvc.ViewFeatures;
 using Microsoft.EntityFrameworkCore;
 using Moq;
 
@@ -36,6 +37,8 @@ namespace DigitalniKlubCitalaca.Tests.Helpers
                 Id = id,
                 UserName = id + "@test.ba",
                 Email = id + "@test.ba",
+                // fiksan ConcurrencyStamp: nova instanca istog korisnika prolazi provjeru konkurentnosti pri Update()
+                ConcurrencyStamp = "stamp-" + id,
                 Ime = "Ime" + id,
                 Prezime = "Prezime" + id,
                 ProfilnaSlika = string.Empty,
@@ -60,8 +63,8 @@ namespace DigitalniKlubCitalaca.Tests.Helpers
         }
 
         /// <summary>
-        /// Postavlja HttpContext (sa korisnikom) i zamjenski IUrlHelper na kontroler,
-        /// kako bi Url.Action(...) i User radili van web servera.
+        /// Postavlja HttpContext (sa korisnikom), TempData i zamjenski IUrlHelper na kontroler,
+        /// kako bi Url.Action(...), TempData i User radili van web servera.
         /// </summary>
         public static T PripremiKontroler<T>(T kontroler, string? korisnikId = null) where T : Controller
         {
@@ -75,6 +78,7 @@ namespace DigitalniKlubCitalaca.Tests.Helpers
             };
 
             kontroler.ControllerContext = new ControllerContext { HttpContext = httpContext };
+            kontroler.TempData = new TempDataDictionary(httpContext, Mock.Of<ITempDataProvider>());
 
             var url = new Mock<IUrlHelper>();
             url.Setup(u => u.Action(It.IsAny<UrlActionContext>())).Returns("/test-link");

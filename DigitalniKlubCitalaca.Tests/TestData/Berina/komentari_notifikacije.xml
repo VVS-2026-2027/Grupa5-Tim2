@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Da li autor objave dobija notifikaciju kada neko kreira komentar (KomentarController.Create).
+     Objava 1 pripada korisniku k1; objava 999 ne postoji. -->
+<komentari>
+  <slucaj>
+    <autorKomentara>k2</autorKomentara>
+    <sadrzajId>1</sadrzajId>
+    <ocekivanoNotifikacija>1</ocekivanoNotifikacija>
+  </slucaj>
+  <slucaj>
+    <autorKomentara>k1</autorKomentara>
+    <sadrzajId>1</sadrzajId>
+    <ocekivanoNotifikacija>0</ocekivanoNotifikacija>
+  </slucaj>
+  <slucaj>
+    <autorKomentara>k2</autorKomentara>
+    <sadrzajId>999</sadrzajId>
+    <ocekivanoNotifikacija>0</ocekivanoNotifikacija>
+  </slucaj>
+</komentari>

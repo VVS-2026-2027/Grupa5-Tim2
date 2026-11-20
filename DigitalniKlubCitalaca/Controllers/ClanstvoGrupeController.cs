@@ -50,7 +50,8 @@ namespace DigitalniKlubCitalaca.Controllers
         public IActionResult Create()
         {
             ViewData["GrupaId"] = new SelectList(_context.CitalackeGrupe, "GrupaId", "GrupaId");
-            ViewData["KorisnikId"] = new SelectList(_context.Korisnici, "KorisnikId", "KorisnikId");
+            // Ispravljeno nakon unit testiranja: Korisnik nema svojstvo "KorisnikId" pa su opcije liste bile prazne
+            ViewData["KorisnikId"] = new SelectList(_context.Korisnici, "Id", "Email");
             return View();
         }
 
@@ -68,7 +69,7 @@ namespace DigitalniKlubCitalaca.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["GrupaId"] = new SelectList(_context.CitalackeGrupe, "GrupaId", "GrupaId", clanstvoGrupe.GrupaId);
-            ViewData["KorisnikId"] = new SelectList(_context.Korisnici, "KorisnikId", "KorisnikId", clanstvoGrupe.KorisnikId);
+            ViewData["KorisnikId"] = new SelectList(_context.Korisnici, "Id", "Email", clanstvoGrupe.KorisnikId);
             return View(clanstvoGrupe);
         }
 
@@ -86,7 +87,7 @@ namespace DigitalniKlubCitalaca.Controllers
                 return NotFound();
             }
             ViewData["GrupaId"] = new SelectList(_context.CitalackeGrupe, "GrupaId", "GrupaId", clanstvoGrupe.GrupaId);
-            ViewData["KorisnikId"] = new SelectList(_context.Korisnici, "KorisnikId", "KorisnikId", clanstvoGrupe.KorisnikId);
+            ViewData["KorisnikId"] = new SelectList(_context.Korisnici, "Id", "Email", clanstvoGrupe.KorisnikId);
             return View(clanstvoGrupe);
         }
 
@@ -123,7 +124,7 @@ namespace DigitalniKlubCitalaca.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["GrupaId"] = new SelectList(_context.CitalackeGrupe, "GrupaId", "GrupaId", clanstvoGrupe.GrupaId);
-            ViewData["KorisnikId"] = new SelectList(_context.Korisnici, "KorisnikId", "KorisnikId", clanstvoGrupe.KorisnikId);
+            ViewData["KorisnikId"] = new SelectList(_context.Korisnici, "Id", "Email", clanstvoGrupe.KorisnikId);
             return View(clanstvoGrupe);
         }
 

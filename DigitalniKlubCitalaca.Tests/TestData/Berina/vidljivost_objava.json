@@ -1,0 +1,9 @@
+[
+  { "tipSadrzaja": "story",  "satiOdObjave": 1,    "ocekivanoVidljivo": true  },
+  { "tipSadrzaja": "story",  "satiOdObjave": 23,   "ocekivanoVidljivo": true  },
+  { "tipSadrzaja": "story",  "satiOdObjave": 24,   "ocekivanoVidljivo": false },
+  { "tipSadrzaja": "story",  "satiOdObjave": 25,   "ocekivanoVidljivo": false },
+  { "tipSadrzaja": "story",  "satiOdObjave": 168,  "ocekivanoVidljivo": false },
+  { "tipSadrzaja": "clanak", "satiOdObjave": 25,   "ocekivanoVidljivo": true  },
+  { "tipSadrzaja": "pdf",    "satiOdObjave": 1000, "ocekivanoVidljivo": true  }
+]

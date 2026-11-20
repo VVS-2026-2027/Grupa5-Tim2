@@ -1,0 +1,5 @@
+[
+  { "korisnikId": "k1", "poruka": "Nova objava u grupi \"Krimi klub\".", "link": "/CitalackaGrupa/Details/1" },
+  { "korisnikId": "k2", "poruka": "Vaš zahtjev je odobren.",           "link": null },
+  { "korisnikId": "k1", "poruka": "Čestitamo – pročitali ste 10 knjiga! 📚", "link": "" }
+]

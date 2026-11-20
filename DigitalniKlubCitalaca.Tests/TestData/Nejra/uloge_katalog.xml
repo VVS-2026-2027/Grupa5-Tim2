@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Da li katalog knjiga (KnjigaController.Index) prikazuje administratorske opcije
+     (dodaj / uredi / obrisi knjigu) za datog korisnika. Prazan korisnikId = neprijavljen. -->
+<korisnici>
+  <korisnik id=""            ocekivanoAdmin="false" />
+  <korisnik id="citalac"     ocekivanoAdmin="false" />
+  <korisnik id="moderator"   ocekivanoAdmin="false" />
+  <korisnik id="admin"       ocekivanoAdmin="true" />
+  <korisnik id="obrisani"    ocekivanoAdmin="false" />
+</korisnici>

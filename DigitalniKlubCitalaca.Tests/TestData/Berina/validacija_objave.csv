@@ -1,0 +1,8 @@
+tipSadrzaja;link;velicinaPdfBajtova;ocekivanoValidno;ocekivanBrojNovihObjava;opis
+clanak;;0;true;1;clanak ne trazi ni link ni pdf
+clanak;https://knjige.ba/recenzija;0;true;1;clanak sa linkom
+story;;0;false;0;story bez slike nije dozvoljen
+story;   ;0;false;0;story sa razmacima umjesto slike
+story;/slike/story1.jpg;0;true;1;story sa slikom
+pdf;;0;false;0;pdf bez fajla (prazan fajl)
+pdf;;2048;true;1;pdf sa fajlom

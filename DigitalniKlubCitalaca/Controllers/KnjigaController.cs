@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using DigitalniKlubCitalaca.Data;
 using DigitalniKlubCitalaca.Models;
+using DigitalniKlubCitalaca.Services;
 using System.Security.Claims;
 
 namespace DigitalniKlubCitalaca.Controllers
@@ -10,10 +11,35 @@ namespace DigitalniKlubCitalaca.Controllers
     public class KnjigaController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IPdfStorageService? _pdfStorage;
 
-        public KnjigaController(ApplicationDbContext context)
+        // IPdfStorageService jos nije implementiran; dok se ne registruje u Program.cs, parametar je null
+        // i PDF se sprema lokalno u wwwroot/biblioteka
+        public KnjigaController(ApplicationDbContext context, IPdfStorageService? pdfStorage = null)
         {
             _context = context;
+            _pdfStorage = pdfStorage;
+        }
+
+        private async Task<string> SpremiPdf(IFormFile pdfFile)
+        {
+            if (_pdfStorage != null)
+                return await _pdfStorage.SpremiAsync(pdfFile);
+
+            var folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "biblioteka");
+
+            if (!Directory.Exists(folder))
+                Directory.CreateDirectory(folder);
+
+            var fileName = Guid.NewGuid() + Path.GetExtension(pdfFile.FileName);
+            var filePath = Path.Combine(folder, fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await pdfFile.CopyToAsync(stream);
+            }
+
+            return "/biblioteka/" + fileName;
         }
 
         private async Task<bool> JeAdministrator()
@@ -105,20 +131,7 @@ namespace DigitalniKlubCitalaca.Controllers
             if (!ModelState.IsValid)
                 return View(knjiga);
 
-            var folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "biblioteka");
-
-            if (!Directory.Exists(folder))
-                Directory.CreateDirectory(folder);
-
-            var fileName = Guid.NewGuid() + Path.GetExtension(pdfFile!.FileName);
-            var filePath = Path.Combine(folder, fileName);
-
-            using (var stream = new FileStream(filePath, FileMode.Create))
-            {
-                await pdfFile.CopyToAsync(stream);
-            }
-
-            knjiga.PdfPutanja = "/biblioteka/" + fileName;
+            knjiga.PdfPutanja = await SpremiPdf(pdfFile!);
 
             _context.Knjige.Add(knjiga);
             await _context.SaveChangesAsync();
@@ -162,20 +175,7 @@ namespace DigitalniKlubCitalaca.Controllers
 
             if (pdfFile != null && pdfFile.Length > 0)
             {
-                var folder = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "biblioteka");
-
-                if (!Directory.Exists(folder))
-                    Directory.CreateDirectory(folder);
-
-                var fileName = Guid.NewGuid() + Path.GetExtension(pdfFile.FileName);
-                var filePath = Path.Combine(folder, fileName);
-
-                using (var stream = new FileStream(filePath, FileMode.Create))
-                {
-                    await pdfFile.CopyToAsync(stream);
-                }
-
-                knjiga.PdfPutanja = "/biblioteka/" + fileName;
+                knjiga.PdfPutanja = await SpremiPdf(pdfFile);
             }
 
             if (!ModelState.IsValid)

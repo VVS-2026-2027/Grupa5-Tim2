@@ -4,16 +4,20 @@ using DigitalniKlubCitalaca.Data;
 using DigitalniKlubCitalaca.Models;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
+using DigitalniKlubCitalaca.Services;
 
 namespace DigitalniKlubCitalaca.Controllers
 {
     public class SadrzajGrupeController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IModeracijaService? _moderacija;
 
-        public SadrzajGrupeController(ApplicationDbContext context)
+        // IModeracijaService jos nije implementiran; dok se ne registruje u Program.cs, parametar je null
+        public SadrzajGrupeController(ApplicationDbContext context, IModeracijaService? moderacija = null)
         {
             _context = context;
+            _moderacija = moderacija;
         }
 
         public async Task<IActionResult> Index()
@@ -75,12 +79,17 @@ namespace DigitalniKlubCitalaca.Controllers
             if (string.IsNullOrWhiteSpace(tekst))
                 return RedirectToAction("Details", new { id = sadrzajId });
 
+            var status = StatusKomentara.aktivan;
+            if (_moderacija != null && await _moderacija.JeNeprikladanAsync(tekst))
+                status = StatusKomentara.neprikladan;
+
             var komentar = new Komentar
             {
                 SadrzajId = sadrzajId,
                 AutorId = korisnikId,
                 Tekst = tekst,
-                DatumKomentara = DateTime.Now
+                DatumKomentara = DateTime.Now,
+                StatusKomentara = status
             };
 
             _context.Komentari.Add(komentar);
