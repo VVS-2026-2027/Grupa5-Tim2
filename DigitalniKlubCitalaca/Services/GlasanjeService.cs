@@ -6,11 +6,19 @@ namespace DigitalniKlubCitalaca.Services
 {
     public class GlasanjeService
     {
-        public GlasanjeService(IEnumerable<int> clanoviKluba, DateTime rokGlasanja) { }
+        private readonly HashSet<int> _clanovi;
+        private readonly DateTime _rok;
+
+        public GlasanjeService(IEnumerable<int> clanoviKluba, DateTime rokGlasanja)
+        {
+            _clanovi = new HashSet<int>(clanoviKluba);
+            _rok = rokGlasanja;
+        }
 
         public void Glasaj(int clanId, int knjigaId, DateTime vrijeme)
         {
-            throw new NotImplementedException();
+            if (!_clanovi.Contains(clanId))
+                throw new InvalidOperationException("Samo članovi kluba mogu glasati.");
         }
     }
 }
