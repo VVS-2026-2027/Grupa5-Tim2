@@ -35,9 +35,13 @@ namespace DigitalniKlubCitalaca.Services
         public int? Pobjednik()
         {
             if (_glasovi.Count == 0) return null;
-            return _glasovi.GroupBy(g => g.KnjigaId)
-                           .OrderByDescending(g => g.Count())
-                           .First().Key;
+            var rezultati = _glasovi.GroupBy(g => g.KnjigaId)
+                .Select(g => new { KnjigaId = g.Key, Glasova = g.Count() })
+                .OrderByDescending(r => r.Glasova)
+                .ToList();
+            if (rezultati.Count > 1 && rezultati[0].Glasova == rezultati[1].Glasova)
+                return null;
+            return rezultati[0].KnjigaId;
         }
     }
 }
