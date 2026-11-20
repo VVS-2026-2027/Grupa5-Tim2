@@ -75,5 +75,22 @@ namespace DigitalniKlubCitalaca.Tests
             Assert.AreEqual(0, _servis.ProsjecnaOcjena(99), 0.0001);
         }
 
+        // F1-Z5
+        [TestMethod]
+        public void TopKnjige_SortiraPoProsjekuPaPoBrojuOcjena()
+        {
+            _servis.Ocijeni(1, 1, 5); _servis.Ocijeni(2, 1, 3); // knjiga 1: 4.0, 2 ocjene
+            _servis.Ocijeni(1, 2, 4);                           // knjiga 2: 4.0, 1 ocjena
+            _servis.Ocijeni(1, 3, 5);                           // knjiga 3: 5.0
+            CollectionAssert.AreEqual(new List<int> { 3, 1, 2 }, _servis.TopKnjige(3));
+        }
+
+        [TestMethod]
+        public void TopKnjige_VracaNajviseNKnjiga()
+        {
+            _servis.Ocijeni(1, 1, 5); _servis.Ocijeni(1, 2, 4); _servis.Ocijeni(1, 3, 3);
+            Assert.AreEqual(2, _servis.TopKnjige(2).Count);
+        }
+
     }
 }

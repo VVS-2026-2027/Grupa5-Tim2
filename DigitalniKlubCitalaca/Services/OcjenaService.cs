@@ -27,6 +27,10 @@ namespace DigitalniKlubCitalaca.Services
             if (ocjene.Count == 0) return 0;
             return Math.Round(ocjene.Average(), 1);
         }
+        public List<int> TopKnjige(int n)
+        {
+            throw new NotImplementedException();
+        }
 
         private IEnumerable<int> OcjeneKnjige(int knjigaId) =>
             _ocjene.Where(o => o.Key.KnjigaId == knjigaId).Select(o => o.Value);
