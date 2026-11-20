@@ -27,5 +27,25 @@ namespace DigitalniKlubCitalaca.Tests
             _servis.Ocijeni(1, 1, 1);
             _servis.Ocijeni(2, 1, 5);
         }
+
+
+        // F1-Z2
+        [TestMethod]
+        public void Ocijeni_IstiKorisnikDvaPuta_BrojiSeJednom()
+        {
+            _servis.Ocijeni(1, 10, 3);
+            _servis.Ocijeni(1, 10, 5);
+            Assert.AreEqual(1, _servis.BrojOcjena(10));
+        }
+
+        [TestMethod]
+        public void Ocijeni_RazlicitiKorisnici_BrojeSeSvi()
+        {
+            _servis.Ocijeni(1, 10, 3);
+            _servis.Ocijeni(2, 10, 5);
+            _servis.Ocijeni(3, 20, 4);
+            Assert.AreEqual(2, _servis.BrojOcjena(10));
+        }
+        
     }
 }

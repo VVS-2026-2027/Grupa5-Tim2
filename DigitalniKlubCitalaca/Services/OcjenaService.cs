@@ -11,5 +11,12 @@ namespace DigitalniKlubCitalaca.Services
             if (ocjena < 1 || ocjena > 5)
                 throw new ArgumentOutOfRangeException(nameof(ocjena), "Ocjena mora biti između 1 i 5.");
         }
+
+
+        public int BrojOcjena(int knjigaId)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }
