@@ -18,6 +18,12 @@ namespace DigitalniKlubCitalaca.Services
 
         public void Glasaj(int clanId, int knjigaId, DateTime vrijeme)
         {
+            ProvjeriPravoGlasa(clanId, vrijeme);
+            _glasovi.Add((clanId, knjigaId));
+        }
+
+        private void ProvjeriPravoGlasa(int clanId, DateTime vrijeme)
+        {
             if (vrijeme > _rok)
                 throw new InvalidOperationException("Glasanje je zatvoreno.");
 
@@ -26,8 +32,6 @@ namespace DigitalniKlubCitalaca.Services
 
             if (_glasovi.Any(g => g.ClanId == clanId))
                 throw new InvalidOperationException("Član je već glasao.");
-
-            _glasovi.Add((clanId, knjigaId));
         }
 
         public int BrojGlasova(int knjigaId) => _glasovi.Count(g => g.KnjigaId == knjigaId);
