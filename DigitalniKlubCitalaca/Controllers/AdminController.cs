@@ -1,5 +1,6 @@
 ﻿using DigitalniKlubCitalaca.Data;
 using DigitalniKlubCitalaca.Models;
+using DigitalniKlubCitalaca.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -11,10 +12,13 @@ namespace DigitalniKlubCitalaca.Controllers
     public class AdminController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IDnevnikAktivnostiService? _dnevnik;
 
-        public AdminController(ApplicationDbContext context)
+        // IDnevnikAktivnostiService jos nije implementiran; dok se ne registruje u Program.cs, parametar je null
+        public AdminController(ApplicationDbContext context, IDnevnikAktivnostiService? dnevnik = null)
         {
             _context = context;
+            _dnevnik = dnevnik;
         }
 
         public async Task<IActionResult> Index(string pretraga)
@@ -73,6 +77,9 @@ namespace DigitalniKlubCitalaca.Controllers
 
             await _context.SaveChangesAsync();
 
+            if (_dnevnik != null)
+                await _dnevnik.ZabiljeziAsync(trenutniKorisnik.Id, "PromijeniStatus", korisnik.Id);
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -102,6 +109,9 @@ namespace DigitalniKlubCitalaca.Controllers
                 korisnik.Uloga = Uloga.moderator;
 
             await _context.SaveChangesAsync();
+
+            if (_dnevnik != null)
+                await _dnevnik.ZabiljeziAsync(trenutniKorisnik.Id, "PromijeniUlogu", korisnik.Id);
 
             return RedirectToAction(nameof(Index));
         }

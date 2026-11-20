@@ -1,0 +1,11 @@
+[
+  { "pretraga": "",           "ocekivaniBroj": 6, "opis": "prazna pretraga vraca sve" },
+  { "pretraga": "   ",        "ocekivaniBroj": 6, "opis": "razmaci se tretiraju kao prazna pretraga" },
+  { "pretraga": "Amra",       "ocekivaniBroj": 1, "opis": "po imenu" },
+  { "pretraga": "Amr",        "ocekivaniBroj": 2, "opis": "dio rijeci - ime i prezime" },
+  { "pretraga": "Begić",      "ocekivaniBroj": 1, "opis": "po prezimenu sa dijakritikom" },
+  { "pretraga": "gmail.com",  "ocekivaniBroj": 1, "opis": "po e-mailu" },
+  { "pretraga": "Sarajevo",   "ocekivaniBroj": 2, "opis": "po gradu" },
+  { "pretraga": "HNK",        "ocekivaniBroj": 1, "opis": "po regiji" },
+  { "pretraga": "Banja Luka", "ocekivaniBroj": 0, "opis": "nema rezultata" }
+]

@@ -66,7 +66,8 @@ namespace DigitalniKlubCitalaca
         }
 
         // GET: Korisnik/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        // Ispravljeno nakon unit testiranja: id je bio int?, a kljuc korisnika je string (GUID)
+        public async Task<IActionResult> Edit(string? id)
         {
             if (id == null)
             {
@@ -137,7 +138,8 @@ namespace DigitalniKlubCitalaca
         // POST: Korisnik/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        // Ispravljeno nakon unit testiranja: id je bio int, a kljuc korisnika je string (GUID)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             var korisnik = await _context.Korisnici.FindAsync(id);
             if (korisnik != null)

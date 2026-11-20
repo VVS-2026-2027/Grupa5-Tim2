@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ocekivani rezultat jednog klika na "Promijeni status" / "Promijeni ulogu" u admin panelu.
+     Pocetno stanje korisnika: u1 = korisnik/aktivan, u2 = moderator/aktivan,
+     u3 = korisnik/blokiran, u4 = korisnik/neaktivan, admin2 = administrator/aktivan -->
+<promjene>
+  <status korisnikId="u1" ocekivano="blokiran" />
+  <status korisnikId="u3" ocekivano="aktivan" />
+  <status korisnikId="u4" ocekivano="aktivan" />
+  <uloga korisnikId="u1" ocekivano="moderator" />
+  <uloga korisnikId="u2" ocekivano="administrator" />
+  <uloga korisnikId="admin2" ocekivano="moderator" />
+</promjene>
