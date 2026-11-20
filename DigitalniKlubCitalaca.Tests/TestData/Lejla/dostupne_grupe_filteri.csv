@@ -1,0 +1,9 @@
+regija;zanr;ocekivaniBrojGrupa;opis
+;;4;bez filtera vraca sve dostupne grupe
+Sarajevo;;2;samo filter regije
+;Krimi;2;samo filter zanra
+Sarajevo;Krimi;1;oba filtera
+Mostar;Roman;1;oba filtera druga regija
+Tuzla;;0;regija bez grupa
+;Poezija;0;zanr bez grupa
+Sarajevo;Roman;0;kombinacija bez rezultata

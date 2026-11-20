@@ -6,16 +6,20 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DigitalniKlubCitalaca.Data;
 using DigitalniKlubCitalaca.Models;
+using DigitalniKlubCitalaca.Services;
 
 namespace DigitalniKlubCitalaca.Controllers
 {
     public class ZahtjevZaPristupController : Controller
     {
         private readonly ApplicationDbContext _context;
+        private readonly IEmailService? _emailService;
 
-        public ZahtjevZaPristupController(ApplicationDbContext context)
+        // IEmailService jos nije implementiran; dok se ne registruje u Program.cs, parametar je null
+        public ZahtjevZaPristupController(ApplicationDbContext context, IEmailService? emailService = null)
         {
             _context = context;
+            _emailService = emailService;
         }
 
         public async Task<IActionResult> Index()
@@ -154,6 +158,10 @@ namespace DigitalniKlubCitalaca.Controllers
 
             await _context.SaveChangesAsync();
 
+            if (_emailService != null)
+                await _emailService.PosaljiObavijestAsync(zahtjev.KorisnikId, "Zahtjev odobren",
+                    $"Vaš zahtjev za pristup grupi \"{zahtjev.CitalackaGrupa.Naziv}\" je odobren.");
+
             return RedirectToAction(nameof(Index));
         }
 
@@ -180,6 +188,10 @@ namespace DigitalniKlubCitalaca.Controllers
             });
 
             await _context.SaveChangesAsync();
+
+            if (_emailService != null)
+                await _emailService.PosaljiObavijestAsync(zahtjev.KorisnikId, "Zahtjev odbijen",
+                    $"Vaš zahtjev za pristup grupi \"{zahtjev.CitalackaGrupa.Naziv}\" je odbijen.");
 
             return RedirectToAction(nameof(Index));
         }

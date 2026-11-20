@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Iz pokrivenosti se iskljucuju: Program, Views (Razor generisane klase) i Migrations -->
+<RunSettings>
+  <DataCollectionRunSettings>
+    <DataCollectors>
+      <DataCollector friendlyName="XPlat code coverage">
+        <Configuration>
+          <Format>cobertura</Format>
+          <Exclude>[*]AspNetCoreGeneratedDocument.*,[*]DigitalniKlubCitalaca.Migrations.*,[*]Program,[DigitalniKlubCitalaca.Tests]*</Exclude>
+          <ExcludeByFile>**/Program.cs,**/Views/**/*.cshtml,**/Migrations/*.cs</ExcludeByFile>
+          <ExcludeByAttribute>GeneratedCodeAttribute,CompilerGeneratedAttribute,ExcludeFromCodeCoverageAttribute</ExcludeByAttribute>
+        </Configuration>
+      </DataCollector>
+      <DataCollector friendlyName="Code Coverage" uri="datacollector://Microsoft/CodeCoverage/2.0">
+        <Configuration>
+          <CodeCoverage>
+            <ModulePaths>
+              <Include>
+                <ModulePath>.*DigitalniKlubCitalaca\.dll$</ModulePath>
+              </Include>
+            </ModulePaths>
+            <Functions>
+              <Exclude>
+                <Function>^AspNetCoreGeneratedDocument\..*</Function>
+                <Function>^DigitalniKlubCitalaca\.Migrations\..*</Function>
+                <Function>^Program\..*</Function>
+              </Exclude>
+            </Functions>
+          </CodeCoverage>
+        </Configuration>
+      </DataCollector>
+    </DataCollectors>
+  </DataCollectionRunSettings>
+</RunSettings>

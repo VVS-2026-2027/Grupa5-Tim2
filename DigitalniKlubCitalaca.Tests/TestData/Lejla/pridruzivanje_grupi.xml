@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Ocekivani zapisi u bazi nakon sto se korisnik (koji je i sam administrator)
+     pridruzi grupi odredjenog tipa. U bazi postoji jos jedan administrator. -->
+<pridruzivanja>
+  <slucaj>
+    <tipGrupe>javna</tipGrupe>
+    <ocekivanoClanstava>1</ocekivanoClanstava>
+    <ocekivanoZahtjeva>0</ocekivanoZahtjeva>
+    <ocekivanoNotifikacija>1</ocekivanoNotifikacija>
+  </slucaj>
+  <slucaj>
+    <tipGrupe>privatna</tipGrupe>
+    <ocekivanoClanstava>0</ocekivanoClanstava>
+    <ocekivanoZahtjeva>1</ocekivanoZahtjeva>
+    <ocekivanoNotifikacija>2</ocekivanoNotifikacija>
+  </slucaj>
+  <slucaj>
+    <tipGrupe>pozivnica</tipGrupe>
+    <ocekivanoClanstava>0</ocekivanoClanstava>
+    <ocekivanoZahtjeva>1</ocekivanoZahtjeva>
+    <ocekivanoNotifikacija>2</ocekivanoNotifikacija>
+  </slucaj>
+</pridruzivanja>
