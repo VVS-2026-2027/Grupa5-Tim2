@@ -111,47 +111,33 @@ Ukupno testnih metoda: 19 + 21 + 18 = 58 (sa data-driven slučajevima i DataRow-
 
 ## Rezultati izvršavanja testova
 
-Nakon integracije testova svih članica tima izvršena su ukupno 223 testna slučaja.
+Nakon integracije testova svih članica tima izvršeno je ukupno 395 testova.
 
 | Rezultat | Broj testova |
 |---|---:|
-| Ukupno | 223 |
-| Uspješni | 215 |
-| Neuspješni | 8 |
+| Ukupno | 395 |
+| Uspješni | 395 |
+| Neuspješni | 0 |
 | Preskočeni | 0 |
-| Postotak uspješnosti | 96,41% |
 
-## Pokrivenost koda (Code Coverage)
+Od toga su moji testovi 58 testnih metoda, odnosno 88 izvršavanja. Raniji neuspješni testovi bili su posljedica zastarjelog zajedničkog `TestHelper.cs` na `main` grani; nakon njegovog ažuriranja svi testovi prolaze.
 
-Pokrivenost koda izmjerena je pomoću alata Coverlet, dok je vizuelni prikaz rezultata generisan pomoću alata ReportGenerator, nakon pokretanja testova svih članica tima.
+## Pokrivenost koda
 
-### Ukupna pokrivenost projekta prema generisanom izvještaju
+| Klasa | Pokrivenost blokova | Pokrivenost linija |
+|---|---:|---:|
+| AdminController | 100 % | 100 % |
+| ProfilController | 95,8 % | 96,6 % |
+| KorisnikController | 100 % | 100 % |
 
-- **Line Coverage:** 68,5%
-- **Branch Coverage:** 33,3%
-- Broj pokrivenih linija: 174
-- Broj nepokrivenih linija: 80
-- Broj linija obuhvaćenih mjerenjem: 254
-- Broj pokrivenih grana: 2 od 6
+Nepokrivene linije u `ProfilController` su u privatnoj metodi `ProfilExists`, koja se nigdje ne poziva (mrtav kod).
 
-### Pokrivenost testiranih klasa
+Rezultati iz Visual Studija (Test → Analyze Code Coverage for All Tests), nakon pokretanja svih 395 testova tima (395 uspješnih, 0 neuspješnih). Ukupna pokrivenost projekta je **99,3 % blokova i 98,7 % linija**.
 
-| Klasa | Pokrivene linije | Linije obuhvaćene mjerenjem | Line Coverage |
-|---|---:|---:|---:|
-| AdminController | 5 | 5 | 100% |
-| ProfilController | 7 | 10 | 70% |
-| KorisnikController | 10 | 10 | 100% |
+![Pokrivenost po namespaceovima, modelima i servisima](../Slike/pokrivenost-1.png)
 
-### Grafički prikaz rezultata
+*Slika 1. Ukupna pokrivenost, modeli i servisi.*
 
-![Ukupna pokrivenost koda](Slike/slika1.png)
+![Pokrivenost po kontrolerima i Identity stranicama](../Slike/pokrivenost-2.png)
 
-*Slika 1. Ukupna pokrivenost koda.*
-
-![Detaljna pokrivenost koda](Slike/slika2.png)
-
-*Slika 2. Pokrivenost pojedinačnih klasa.*
-
-![Nastavak pokrivenosti koda](Slike/slika3.png)
-
-*Slika 3. Nastavak prikaza pokrivenosti klasa.*
+*Slika 2. Pokrivenost kontrolera i Identity stranica.*

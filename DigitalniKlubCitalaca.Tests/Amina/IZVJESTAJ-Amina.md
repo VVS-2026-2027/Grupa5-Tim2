@@ -24,48 +24,43 @@ Za izolaciju testova korišteni su **Moq**, EF Core InMemory baza i pomoćni obj
 
 ## Rezultati izvršavanja testova
 
-Nakon uključivanja mojih testova u postojeći testni projekat, testovi su pokrenuti naredbom `dotnet test` uz prikupljanje podataka o pokrivenosti koda.
+Testovi su pokrenuti u Visual Studiju (Test Explorer → Run All) zajedno s testovima ostalih članica:
 
-**Ukupni rezultati zajedničkog testnog projekta:**
-- Ukupno izvršenih testova: **135**
-- Uspješno izvršenih: **134**
-- Neuspješnih: **1**
+- Ukupno izvršenih testova: **395**
+- Uspješno izvršenih: **395**
+- Neuspješnih: **0**
 - Preskočenih: **0**
 
-Jedini neuspješni test je `Create_Get_ListaKorisnikaImaIdKaoVrijednostIEmailKaoTekst` iz klase `ClanstvoGrupeControllerTests`. Prilikom čitanja elemenata `MultiSelectList` dolazi do izuzetka `NullReferenceException`.
-
-## Pokrivenost koda
-
-Na osnovu generisanog izvještaja `coverage.cobertura.xml` dobijeni su sljedeći rezultati:
-
-- **Line Coverage: 59,68%**
-- **Branch Coverage: 33,33%**
-
-Navedeni procenti predstavljaju ukupnu pokrivenost koda ostvarenu izvršavanjem svih testova u zajedničkom testnom projektu, uključujući testove drugih članova tima.
+Od toga su moji testovi 43 testne metode, odnosno 60 izvršavanja.
 
 ## Uočeni nedostaci
 
-Tokom testiranja identifikovani su sljedeći problemi:
-
-1. **ClanstvoGrupeController** – neispravno povezivanje podataka u padajućoj listi korisnika zbog korištenja pogrešnog naziva svojstva. U izvještaju o implementaciji evidentirana je ispravka na `Id` i `Email`, ali regresioni test trenutno nije uspješno prošao.
+1. **ClanstvoGrupeController** – padajuća lista korisnika koristila je svojstvo `"KorisnikId"`, koje klasa `Korisnik` nema, pa su sve opcije bile prazne. **Ispravljeno** na `"Id", "Email"`; regresioni test `Create_Get_ListaKorisnikaImaIdKaoVrijednostIEmailKaoTekst` sada prolazi.
 2. **ClanstvoGrupeController.Create** – omogućeno je višestruko dodavanje istog korisnika u istu grupu, bez provjere duplikata.
-3. **RegisterModel.CreateUser** – `catch` blok nije dostižan za trenutnu implementaciju klase `Korisnik`, zbog čega ga nije moguće pokriti predviđenim testom.
-4. **LoginModel** – nedosljednost jezika korisničkih poruka, pri čemu se pojedine poruke prikazuju na bosanskom, a druge na engleskom.
+3. **RegisterModel.CreateUser** – `catch` blok nije dostižan za trenutnu implementaciju klase `Korisnik`, zbog čega ga nije moguće pokriti testom.
+4. **LoginModel** – nedosljednost jezika korisničkih poruka: pojedine poruke su na bosanskom, a druge na engleskom.
 
 ## Pokrivenost koda
 
-Nakon implementacije i pokretanja unit testova izvršena je analiza pokrivenosti koda.
-Dobijeni rezultati su Line Coverage 59,68% i Branch Coverage 33,33%.
+| Klasa | Pokrivenost blokova | Pokrivenost linija |
+|---|---:|---:|
+| ClanstvoGrupeController | 100 % | 100 % |
+| LoginModel | 100 % | 100 % |
+| LogoutModel | 100 % | 100 % |
+| RegisterModel | 98,3 % | 93,8 % |
 
-Na slici ispod prikazani su rezultati analize pokrivenosti koda.
+Jedine nepokrivene linije u `RegisterModel` su u nedostižnom `catch` bloku (nedostatak 3).
 
-![Slika 1. Rezultati analize pokrivenosti koda](slika.png)
+Rezultati iz Visual Studija (Test → Analyze Code Coverage for All Tests), nakon pokretanja svih 395 testova tima (395 uspješnih, 0 neuspješnih). Ukupna pokrivenost projekta je **99,3 % blokova i 98,7 % linija**.
+
+![Pokrivenost po namespaceovima, modelima i servisima](../Slike/pokrivenost-1.png)
+
+*Slika 1. Ukupna pokrivenost, modeli i servisi.*
+
+![Pokrivenost po kontrolerima i Identity stranicama](../Slike/pokrivenost-2.png)
+
+*Slika 2. Pokrivenost kontrolera i Identity stranica.*
 
 ## Zaključak
 
-Implementirani testovi obuhvataju osnovne funkcionalnosti članstva u grupama i upravljanja korisničkim nalozima, kao i različite pozitivne, negativne i granične scenarije.
-
-Pokretanjem zajedničkog testnog projekta uspješno su izvršena 134 od ukupno 135 testova. Preostali neuspješni test zahtijeva dodatnu provjeru i otklanjanje uzroka izuzetka.
-
-Rezultati pokrivenosti ukazuju na potrebu za dodatnim testovima, posebno za grananja i alternativne tokove izvršavanja.
-
+Implementirani testovi obuhvataju upravljanje članstvima u grupama, registraciju, prijavu i odjavu, uz pozitivne, negativne i granične scenarije. Sve četiri testirane klase su iznad traženih 90 % pokrivenosti, a testiranjem je pronađena i ispravljena greška u padajućoj listi korisnika.

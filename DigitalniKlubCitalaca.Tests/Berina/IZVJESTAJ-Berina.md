@@ -97,4 +97,20 @@ pa se akcija ranije vraća na AccessDenied. Zbog toga je ta linija nedostižna (
 Prijedlog je da se ta provjera premjesti prije upita u bazu, kao u `DodajKomentar`.
 
 ## Pokrivenost koda
-_(ubaciti screenshot)_ SadrzajGrupeController: __ % · KomentarController: __ %
+
+| Klasa | Pokrivenost blokova | Pokrivenost linija |
+|---|---:|---:|
+| SadrzajGrupeController | 99,2 % | 98,8 % |
+| KomentarController | 100 % | 100 % |
+
+Jedina nepokrivena linija u `SadrzajGrupeController` je nedostižna provjera `korisnikId == null` u `Create` (POST), opisana u dijelu „Uočen nedostatak u kodu“.
+
+Rezultati iz Visual Studija (Test → Analyze Code Coverage for All Tests), nakon pokretanja svih 395 testova tima (395 uspješnih, 0 neuspješnih). Ukupna pokrivenost projekta je **99,3 % blokova i 98,7 % linija**.
+
+![Pokrivenost po namespaceovima, modelima i servisima](../Slike/pokrivenost-1.png)
+
+*Slika 1. Ukupna pokrivenost, modeli i servisi.*
+
+![Pokrivenost po kontrolerima i Identity stranicama](../Slike/pokrivenost-2.png)
+
+*Slika 2. Pokrivenost kontrolera i Identity stranica.*

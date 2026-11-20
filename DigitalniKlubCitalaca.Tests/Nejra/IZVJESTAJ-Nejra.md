@@ -119,4 +119,22 @@ Ukupno testnih metoda: 31 + 18 + 5 + 4 + 8 = 66 (sa data-driven slučajevima i D
    Padajuće liste prikazuju ID-eve umjesto naziva knjige i grupe.
 
 ## Pokrivenost koda
-_(ubaciti screenshot)_ KnjigaController: __ % · KnjigaGrupaController: __ % · NotifikacijaController: __ % · NotifikacijaService: __ % · HomeController: __ %
+
+| Klasa | Pokrivenost blokova | Pokrivenost linija |
+|---|---:|---:|
+| KnjigaController | 98,9 % | 97,6 % |
+| KnjigaGrupaController | 100 % | 100 % |
+| NotifikacijaController | 100 % | 100 % |
+| NotifikacijaService | 100 % | 100 % |
+| HomeController | 100 % | 100 % |
+| ErrorViewModel | 100 % | 100 % |
+
+Rezultati iz Visual Studija (Test → Analyze Code Coverage for All Tests), nakon pokretanja svih 395 testova tima (395 uspješnih, 0 neuspješnih). Ukupna pokrivenost projekta je **99,3 % blokova i 98,7 % linija**.
+
+![Pokrivenost po namespaceovima, modelima i servisima](../Slike/pokrivenost-1.png)
+
+*Slika 1. Ukupna pokrivenost, modeli i servisi.*
+
+![Pokrivenost po kontrolerima i Identity stranicama](../Slike/pokrivenost-2.png)
+
+*Slika 2. Pokrivenost kontrolera i Identity stranica.*
