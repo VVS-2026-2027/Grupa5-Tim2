@@ -21,7 +21,8 @@ namespace DigitalniKlubCitalaca.Services
 
         public double ProsjecnaOcjena(int knjigaId)
         {
-            throw new NotImplementedException();
+            var prosjek = _ocjene.Where(o => o.Key.KnjigaId == knjigaId).Average(o => o.Value);
+            return Math.Round(prosjek, 1);
         }
     }
 }
