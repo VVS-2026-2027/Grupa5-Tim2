@@ -74,5 +74,15 @@ namespace DigitalniKlubCitalaca.Tests
         {
             Assert.IsNull(_servis.Pobjednik());
         }
+
+
+        // F2-Z5
+        [TestMethod]
+        public void Pobjednik_NerijesenRezultat_VracaNull()
+        {
+            _servis.Glasaj(1, 10, _prijeRoka);
+            _servis.Glasaj(2, 20, _prijeRoka);
+            Assert.IsNull(_servis.Pobjednik());
+        }
     }
 }
