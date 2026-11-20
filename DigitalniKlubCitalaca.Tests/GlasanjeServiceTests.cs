@@ -58,5 +58,21 @@ namespace DigitalniKlubCitalaca.Tests
             _servis.Glasaj(1, 10, _rok);
             Assert.AreEqual(1, _servis.BrojGlasova(10));
         }
+
+        // F2-Z4
+        [TestMethod]
+        public void Pobjednik_KnjigaSNajviseGlasova()
+        {
+            _servis.Glasaj(1, 10, _prijeRoka);
+            _servis.Glasaj(2, 20, _prijeRoka);
+            _servis.Glasaj(3, 20, _prijeRoka);
+            Assert.AreEqual(20, _servis.Pobjednik());
+        }
+
+        [TestMethod]
+        public void Pobjednik_BezGlasova_VracaNull()
+        {
+            Assert.IsNull(_servis.Pobjednik());
+        }
     }
 }

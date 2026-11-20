@@ -31,5 +31,10 @@ namespace DigitalniKlubCitalaca.Services
         }
 
         public int BrojGlasova(int knjigaId) => _glasovi.Count(g => g.KnjigaId == knjigaId);
+
+        public int? Pobjednik()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
