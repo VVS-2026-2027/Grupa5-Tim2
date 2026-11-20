@@ -66,5 +66,14 @@ namespace DigitalniKlubCitalaca.Tests
             Assert.AreEqual(4.5, _servis.ProsjecnaOcjena(10), 0.0001);
         }
 
+
+        // F1-Z4
+        [TestMethod]
+        public void ProsjecnaOcjena_KnjigaBezOcjena_VracaNulu()
+        {
+            _servis.Ocijeni(1, 10, 5);
+            Assert.AreEqual(0, _servis.ProsjecnaOcjena(99), 0.0001);
+        }
+
     }
 }
