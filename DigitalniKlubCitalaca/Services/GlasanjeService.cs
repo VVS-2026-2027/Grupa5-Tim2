@@ -1,0 +1,51 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace DigitalniKlubCitalaca.Services
+{
+    public class GlasanjeService
+    {
+        private readonly HashSet<int> _clanovi;
+        private readonly DateTime _rok;
+        private readonly List<(int ClanId, int KnjigaId)> _glasovi = new List<(int, int)>();
+
+        public GlasanjeService(IEnumerable<int> clanoviKluba, DateTime rokGlasanja)
+        {
+            _clanovi = new HashSet<int>(clanoviKluba);
+            _rok = rokGlasanja;
+        }
+
+        public void Glasaj(int clanId, int knjigaId, DateTime vrijeme)
+        {
+            ProvjeriPravoGlasa(clanId, vrijeme);
+            _glasovi.Add((clanId, knjigaId));
+        }
+
+        private void ProvjeriPravoGlasa(int clanId, DateTime vrijeme)
+        {
+            if (vrijeme > _rok)
+                throw new InvalidOperationException("Glasanje je zatvoreno.");
+
+            if (!_clanovi.Contains(clanId))
+                throw new InvalidOperationException("Samo članovi kluba mogu glasati.");
+
+            if (_glasovi.Any(g => g.ClanId == clanId))
+                throw new InvalidOperationException("Član je već glasao.");
+        }
+
+        public int BrojGlasova(int knjigaId) => _glasovi.Count(g => g.KnjigaId == knjigaId);
+
+        public int? Pobjednik()
+        {
+            if (_glasovi.Count == 0) return null;
+            var rezultati = _glasovi.GroupBy(g => g.KnjigaId)
+                .Select(g => new { KnjigaId = g.Key, Glasova = g.Count() })
+                .OrderByDescending(r => r.Glasova)
+                .ToList();
+            if (rezultati.Count > 1 && rezultati[0].Glasova == rezultati[1].Glasova)
+                return null;
+            return rezultati[0].KnjigaId;
+        }
+    }
+}
