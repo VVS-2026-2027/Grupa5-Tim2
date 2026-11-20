@@ -18,6 +18,9 @@ namespace DigitalniKlubCitalaca.Services
 
         public void Glasaj(int clanId, int knjigaId, DateTime vrijeme)
         {
+            if (vrijeme > _rok)
+                throw new InvalidOperationException("Glasanje je zatvoreno.");
+
             if (!_clanovi.Contains(clanId))
                 throw new InvalidOperationException("Samo članovi kluba mogu glasati.");
 
