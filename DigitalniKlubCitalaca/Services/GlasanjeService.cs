@@ -20,5 +20,10 @@ namespace DigitalniKlubCitalaca.Services
             if (!_clanovi.Contains(clanId))
                 throw new InvalidOperationException("Samo članovi kluba mogu glasati.");
         }
+        public int BrojGlasova(int knjigaId)
+        {
+            throw new NotImplementedException();
+        }
+
     }
 }

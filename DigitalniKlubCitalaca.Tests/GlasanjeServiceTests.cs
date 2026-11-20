@@ -26,5 +26,21 @@ namespace DigitalniKlubCitalaca.Tests
         {
             _servis.Glasaj(1, 10, _prijeRoka);
         }
+        // F2-Z2
+        [TestMethod]
+        public void Glasaj_ClanGlasaDrugiPut_BacaIzuzetak()
+        {
+            _servis.Glasaj(1, 10, _prijeRoka);
+            Assert.ThrowsException<InvalidOperationException>(() => _servis.Glasaj(1, 20, _prijeRoka));
+        }
+
+        [TestMethod]
+        public void BrojGlasova_VracaBrojGlasovaZaKnjigu()
+        {
+            _servis.Glasaj(1, 10, _prijeRoka);
+            _servis.Glasaj(2, 10, _prijeRoka);
+            _servis.Glasaj(3, 20, _prijeRoka);
+            Assert.AreEqual(2, _servis.BrojGlasova(10));
+        }
     }
 }
