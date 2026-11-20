@@ -34,7 +34,10 @@ namespace DigitalniKlubCitalaca.Services
 
         public int? Pobjednik()
         {
-            throw new NotImplementedException();
+            if (_glasovi.Count == 0) return null;
+            return _glasovi.GroupBy(g => g.KnjigaId)
+                           .OrderByDescending(g => g.Count())
+                           .First().Key;
         }
     }
 }
