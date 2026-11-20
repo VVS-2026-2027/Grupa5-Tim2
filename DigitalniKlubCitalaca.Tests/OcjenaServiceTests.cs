@@ -46,6 +46,25 @@ namespace DigitalniKlubCitalaca.Tests
             _servis.Ocijeni(3, 20, 4);
             Assert.AreEqual(2, _servis.BrojOcjena(10));
         }
-        
+
+        // F1-Z3
+        [TestMethod]
+        public void ProsjecnaOcjena_ViseOcjena_ZaokruzujeNaJednuDecimalu()
+        {
+            _servis.Ocijeni(1, 10, 5);
+            _servis.Ocijeni(2, 10, 4);
+            _servis.Ocijeni(3, 10, 4);
+            Assert.AreEqual(4.3, _servis.ProsjecnaOcjena(10), 0.0001);
+        }
+
+        [TestMethod]
+        public void ProsjecnaOcjena_PromijenjenaOcjena_RacunaNovuVrijednost()
+        {
+            _servis.Ocijeni(1, 10, 2);
+            _servis.Ocijeni(1, 10, 5);
+            _servis.Ocijeni(2, 10, 4);
+            Assert.AreEqual(4.5, _servis.ProsjecnaOcjena(10), 0.0001);
+        }
+
     }
 }

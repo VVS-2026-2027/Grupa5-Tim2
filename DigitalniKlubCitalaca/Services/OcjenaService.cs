@@ -17,5 +17,11 @@ namespace DigitalniKlubCitalaca.Services
         }
 
         public int BrojOcjena(int knjigaId) => _ocjene.Keys.Count(k => k.KnjigaId == knjigaId);
+
+
+        public double ProsjecnaOcjena(int knjigaId)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
